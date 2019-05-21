@@ -5,6 +5,7 @@ namespace Playground
 {
     class Program
     {
+        static readonly string jsonPath = @"D:\Documents\Projetos\C#\C# - Playground\src\json.json";
         static void Main(string[] args)
         {
             // Using class on a Library project
@@ -35,6 +36,10 @@ namespace Playground
             string[] names = { "Mateus", "Marcos", "Lucas", "João" };
             ManyEntries02(names);
             ManyEntries03("Mateus", "Marcos", "Lucas", "João", "Evangelhos");
+
+            // Testes JSON
+            HandlerJSON jsonTest = new HandlerJSON();
+            jsonTest.ExtractJsonData(jsonPath);
 
             // Showing project results
             Console.WriteLine("\nReference different project. Sum of values = " + value);

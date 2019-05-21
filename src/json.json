@@ -1,0 +1,7 @@
+{
+    "testUrl" : "http://urlteste.com.br",
+    "header" : [{
+        "authorization" : "Token"
+    }],
+    "healthCheckerIdentifier" : "fjdsksd-klasfkn-05665161"
+}
