@@ -41,6 +41,13 @@ namespace Playground
             HandlerJSON jsonTest = new HandlerJSON();
             jsonTest.ExtractJsonData(jsonPath);
 
+            // Throwing Personalized Exception
+            try {
+                throw new MyException("10");
+            } catch(MyException ex) {
+                Console.WriteLine(ex.Message);
+            }
+
             // Showing project results
             Console.WriteLine("\nReference different project. Sum of values = " + value);
             Console.WriteLine("\nFirst use of structs. Struct name: " + newStruct.Name);
