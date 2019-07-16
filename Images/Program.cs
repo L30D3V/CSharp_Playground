@@ -8,7 +8,7 @@ namespace Images
 {
     class Program
     {
-        static readonly string rootFolder = @"C:\Users\Leonardot\Documents\Projetos\Ref\CSharp_Playground\Images";
+        static readonly string rootFolder = @"C:\Users\leonardot.MOSTQI\Documents\Projetos\Ref\CSharp_Playground\Images";
         static readonly string imageFolderPath = @"\images\";
         static readonly string base64FolderPath = @"\base64\";
         static void Main(string[] args)
