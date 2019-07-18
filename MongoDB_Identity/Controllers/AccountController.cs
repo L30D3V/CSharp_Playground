@@ -72,70 +72,83 @@ namespace MongoDB_Identity.Controllers
         [HttpPost("login")]
         public async Task<object> Post([FromBody]UserModel usuario, [FromServices]SigningConfigurations signingConfigurations, [FromServices]TokenConfigurations tokenConfigurations)
         {
-            bool credenciaisValidas = false;
-            if (usuario != null && !string.IsNullOrWhiteSpace(usuario.Email))
+            try
             {
-                // Retrieve User
-                var userIdentity = await _userManager.FindByEmailAsync(usuario.Email);
-                if (userIdentity != null)
+                bool credenciaisValidas = false;
+                if (usuario != null && !string.IsNullOrWhiteSpace(usuario.Email))
                 {
-                    // LogIn User
-                    var resultadoLogin = _signInManager
-                        .CheckPasswordSignInAsync(userIdentity, usuario.Password, false)
-                        .Result;
-                    if (resultadoLogin.Succeeded)
+                    // Retrieve User
+                    var userIdentity = await _userManager.FindByEmailAsync(usuario.Email);
+                    if (userIdentity != null)
                     {
-                        // Verify permission
-                        credenciaisValidas = _userManager.IsInRoleAsync(
-                            userIdentity, Roles.ROLE_API_DOSSIER).Result;
+                        // LogIn User
+                        var resultadoLogin = _signInManager
+                            .CheckPasswordSignInAsync(userIdentity, usuario.Password, false)
+                            .Result;
+                        if (resultadoLogin.Succeeded)
+                        {
+                            // Verify permission
+                            credenciaisValidas = _userManager.IsInRoleAsync(
+                                userIdentity, Roles.ROLE_API_DOSSIER).Result;
+                        }
                     }
                 }
-            }
 
-            if (credenciaisValidas)
-            {
-                ClaimsIdentity identity = new ClaimsIdentity(
-                    new GenericIdentity(usuario.Email, "Login"),
-                    new[] {
+                if (credenciaisValidas)
+                {
+                    ClaimsIdentity identity = new ClaimsIdentity(
+                        new GenericIdentity(usuario.Email, "Login"),
+                        new[] {
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
                         new Claim(JwtRegisteredClaimNames.UniqueName, usuario.Email),
-                        new Claim("roles", "Member")
-                    }
-                );
+                        new Claim("roles", "Member"),
+                        new Claim("roles", "Admin")
+                        }
+                    );
 
-                DateTime dataCriacao = DateTime.Now;
-                DateTime dataExpiracao = dataCriacao +
-                    TimeSpan.FromSeconds(tokenConfigurations.Seconds);
+                    DateTime dataCriacao = DateTime.Now;
+                    DateTime dataExpiracao = dataCriacao +
+                        TimeSpan.FromSeconds(tokenConfigurations.Seconds);
 
-                var handler = new JwtSecurityTokenHandler();
-                var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+                    var handler = new JwtSecurityTokenHandler();
+                    var securityToken = handler.CreateToken(new SecurityTokenDescriptor
+                    {
+                        Issuer = tokenConfigurations.Issuer,
+                        Audience = tokenConfigurations.Audience,
+                        SigningCredentials = signingConfigurations.SigningCredentials,
+                        Subject = identity,
+                        NotBefore = dataCriacao,
+                        Expires = dataExpiracao
+                    });
+                    var token = handler.WriteToken(securityToken);
+
+                    return new
+                    {
+                        authenticated = true,
+                        created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
+                        expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
+                        accessToken = token,
+                        message = "OK"
+                    };
+                }
+                else
                 {
-                    Issuer = tokenConfigurations.Issuer,
-                    Audience = tokenConfigurations.Audience,
-                    SigningCredentials = signingConfigurations.SigningCredentials,
-                    Subject = identity,
-                    NotBefore = dataCriacao,
-                    Expires = dataExpiracao
-                });
-                var token = handler.WriteToken(securityToken);
-
-                return new
-                {
-                    authenticated = true,
-                    created = dataCriacao.ToString("yyyy-MM-dd HH:mm:ss"),
-                    expiration = dataExpiracao.ToString("yyyy-MM-dd HH:mm:ss"),
-                    accessToken = token,
-                    message = "OK"
-                };
+                    return new
+                    {
+                        authenticated = false,
+                        message = "Falha ao autenticar"
+                    };
+                }
             }
-            else
+            catch (Exception ex)
             {
                 return new
                 {
-                    authenticated = false,
-                    message = "Falha ao autenticar"
+                    authenticaded = false,
+                    message = "Um erro ocorreu: " + ex.Message
                 };
             }
+            
         }
     }
 }
