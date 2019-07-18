@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 using AspNetCore.Identity.MongoDbCore.Infrastructure;
 
-using AspCore_Identity.Models;
+using MongoDB_Identity.Models;
 
-namespace AspCore_Identity
+namespace MongoDB_Identity
 {
     public class Startup
     {
@@ -54,12 +54,10 @@ namespace AspCore_Identity
                     .Configure(tokenConfigurations);
             services.AddSingleton(tokenConfigurations);
 
-            services.AddAuthentication(authOptions =>
-            {
+            services.AddAuthentication(authOptions => {
                 authOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 authOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(bearerOptions =>
-            {
+            }).AddJwtBearer(bearerOptions => {
                 var paramsValidation = bearerOptions.TokenValidationParameters;
                 paramsValidation.IssuerSigningKey = signingConfigurations.Key;
                 paramsValidation.ValidAudience = tokenConfigurations.Audience;
@@ -74,11 +72,13 @@ namespace AspCore_Identity
             });
 
             // Create policy to use Token as Authorization method
-            services.AddAuthorization(auth =>
-            {
+            services.AddAuthorization(auth => {
                 auth.AddPolicy("Authorized", new AuthorizationPolicyBuilder()
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
                     .RequireAuthenticatedUser().Build());
+                auth.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+                auth.AddPolicy("Manager", policy => policy.RequireRole("Manager"));
+                auth.AddPolicy("Member", policy => policy.RequireRole("Member"));
             });
 
             // Add application services.
