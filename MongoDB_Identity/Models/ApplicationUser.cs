@@ -1,12 +1,14 @@
 ﻿using AspNetCore.Identity.MongoDbCore.Models;
+using MongoDbGenericRepository.Attributes;
 
 namespace MongoDB_Identity.Models
 {
-    // Add profile data for application users by adding properties to the ApplicationUser class
+    [CollectionName("Users")]
     public class ApplicationUser : MongoIdentityUser
     {
     }
 
+    [CollectionName("Roles")]
     public class ApplicationRole : MongoIdentityRole
     {
         public ApplicationRole() : base()
