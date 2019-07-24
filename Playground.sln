@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspCore_Identity", "AspCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoDB_Identity", "MongoDB_Identity\MongoDB_Identity.csproj", "{3DB7B96E-17D5-423C-8B22-CBA08954D36E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer_Mongo", "IdentityServer_Mongo\IdentityServer_Mongo.csproj", "{9584FD20-5EAD-4BA0-9B8D-C4C2AF87DC53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3DB7B96E-17D5-423C-8B22-CBA08954D36E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DB7B96E-17D5-423C-8B22-CBA08954D36E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DB7B96E-17D5-423C-8B22-CBA08954D36E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9584FD20-5EAD-4BA0-9B8D-C4C2AF87DC53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9584FD20-5EAD-4BA0-9B8D-C4C2AF87DC53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9584FD20-5EAD-4BA0-9B8D-C4C2AF87DC53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9584FD20-5EAD-4BA0-9B8D-C4C2AF87DC53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
