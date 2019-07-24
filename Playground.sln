@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer_Mongo", "Ide
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer_SqlServer", "IdentityServer_SqlServer\IdentityServer_SqlServer.csproj", "{C58BD60F-247E-4F66-9CAF-60FC92CD3033}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client_IdentitySQL", "Client_IdentitySQL\Client_IdentitySQL.csproj", "{DE214995-4945-4E42-99E8-CD7A1D9FE3E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{C58BD60F-247E-4F66-9CAF-60FC92CD3033}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C58BD60F-247E-4F66-9CAF-60FC92CD3033}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C58BD60F-247E-4F66-9CAF-60FC92CD3033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE214995-4945-4E42-99E8-CD7A1D9FE3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE214995-4945-4E42-99E8-CD7A1D9FE3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE214995-4945-4E42-99E8-CD7A1D9FE3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE214995-4945-4E42-99E8-CD7A1D9FE3E0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
