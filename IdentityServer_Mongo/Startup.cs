@@ -72,8 +72,7 @@ namespace IdentityServer_Mongo
                 .AddMongoRepository()
                 .AddClients()
                 .AddIdentityApiResources()
-                .AddPersistedGrants()
-                .AddTestUsers(Config.GetUsers());
+                .AddPersistedGrants();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
