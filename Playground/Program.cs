@@ -51,6 +51,15 @@ namespace Playground
             // Showing project results
             Console.WriteLine("\nReference different project. Sum of values = " + value);
             Console.WriteLine("\nFirst use of structs. Struct name: " + newStruct.Name);
+
+            // Desired output
+            // "{ \"service_id\" : \"5c48a0ae585a6bf74393b81f\", \"month\" : 5 , \"count\" : 7083, \"month\" : 5 }"
+            Console.WriteLine("");
+            String input = "{{ \"id\" : {\"service_id\": ObjectId(\"5c48a0ae585a6bf74393b81f\"), \"month\": 5}, \"count\":7083, \"month\": 5}}";
+            Console.WriteLine("Input String: " + input);
+            String output = input.Replace("{ \"id\" : {", " ").Replace("ObjectId(", "").Replace(")", "").Replace("}}", "}").Replace("},", ",");
+            Console.WriteLine("Output String: " + output);
+            
             Console.ReadKey();
         }
 
